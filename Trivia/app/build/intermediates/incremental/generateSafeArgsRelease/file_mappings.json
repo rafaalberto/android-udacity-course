@@ -1,0 +1,1 @@
+[{"navFile":"src/main/res/navigation/navigation.xml","javaFiles":["br.com.trivia.TitleFragmentDirections","br.com.trivia.GameFragmentDirections","br.com.trivia.GameOverFragmentDirections","br.com.trivia.GameWonFragmentDirections","br.com.trivia.GameWonFragmentArgs"]}]
