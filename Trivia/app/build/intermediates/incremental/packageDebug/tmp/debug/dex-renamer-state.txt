@@ -1,4 +1,4 @@
-#Sun Jun 28 18:52:54 BRT 2020
-base.0=/home/rafael/dev/studies/android/Trivia/app/build/intermediates/dex/debug/out/classes.dex
+#Wed Jul 01 19:31:17 BRT 2020
+base.0=/home/rafael/dev/studies/android/android-udacity-course/Trivia/app/build/intermediates/dex/debug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

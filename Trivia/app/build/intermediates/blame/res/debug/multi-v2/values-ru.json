@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/rafael/dev/studies/android/Trivia/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ru/values-ru.xml",
+            "outputFile": "/home/rafael/dev/studies/android/android-udacity-course/Trivia/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ru/values-ru.xml",
             "map": [
                 {
                     "source": "/home/rafael/.gradle/caches/transforms-2/files-2.1/0f07932a114661448643ac1e3e17077f/navigation-ui-2.0.0/res/values-ru/values-ru.xml",
