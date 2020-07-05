@@ -6,9 +6,8 @@
     app:startDestination="@id/titleFragment">
     <fragment
         android:id="@+id/titleFragment"
-        android:name="br.com.guesstheword.TitleFragment"
-        android:label="fragment_title"
-        tools:layout="@layout/fragment_title">
+        android:name="br.com.guesstheword.screens.title.TitleFragment"
+        android:label="fragment_title">
         <action
             android:id="@+id/action_title_to_game"
             app:destination="@id/gameFragment"
@@ -20,9 +19,8 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="br.com.guesstheword.GameFragment"
-        android:label="fragment_game"
-        tools:layout="@layout/fragment_game">
+        android:name="br.com.guesstheword.screens.game.GameFragment"
+        android:label="fragment_game">
         <action
             android:id="@+id/action_game_to_score"
             app:destination="@id/scoreFragment"
@@ -35,9 +33,8 @@
     </fragment>
     <fragment
         android:id="@+id/scoreFragment"
-        android:name="br.com.guesstheword.ScoreFragment"
-        android:label="fragment_score"
-        tools:layout="@layout/fragment_score">
+        android:name="br.com.guesstheword.screens.score.ScoreFragment"
+        android:label="fragment_score">
         <argument
             android:name="score"
             app:argType="integer" />
