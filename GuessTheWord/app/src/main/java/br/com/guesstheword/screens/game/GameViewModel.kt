@@ -1,8 +1,10 @@
 package br.com.guesstheword.screens.game
 
 import android.os.CountDownTimer
+import android.text.format.DateUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
@@ -21,7 +23,8 @@ class GameViewModel : ViewModel() {
     val word: LiveData<String> get() = _word
     val score: LiveData<Int> get() = _score
     val eventGameFinish: LiveData<Boolean> get() = _eventGameFinish
-    val currentTime: LiveData<Long> get() = _currentTime
+    val currentTimeString: LiveData<String> =
+        Transformations.map(_currentTime) { DateUtils.formatElapsedTime(it) }
 
     private lateinit var wordList: MutableList<String>
     private val timer: CountDownTimer
