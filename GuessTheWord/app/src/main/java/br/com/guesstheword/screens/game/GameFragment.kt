@@ -1,6 +1,7 @@
 package br.com.guesstheword.screens.game
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,8 @@ class GameFragment : Fragment() {
 
         viewModel.score.observe(this, Observer { binding.scoreText.text = it.toString() })
 
+        viewModel.currentTime.observe(this, Observer { binding.timerText.text = DateUtils.formatElapsedTime(it) })
+
         viewModel.eventGameFinish.observe(this, Observer {
             if (it) {
                 gameFinished()
@@ -46,6 +49,7 @@ class GameFragment : Fragment() {
 
     private fun gameFinished() {
         findNavController().navigate(
-            GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0))
+            GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+        )
     }
 }
