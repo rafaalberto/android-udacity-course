@@ -1,18 +1,19 @@
-package br.com.sleeptracker
+package br.com.sleeptracker.screens.quality
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import br.com.sleeptracker.R
 
-class SleepTrackerFragment : Fragment() {
+class SleepQualityFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sleep_tracker, container, false)
+        return inflater.inflate(R.layout.fragment_sleep_quality, container, false)
     }
 
 }

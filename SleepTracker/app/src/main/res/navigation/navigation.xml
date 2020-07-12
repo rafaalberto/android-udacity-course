@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/sleep_tracker_fragment"
-        android:name="br.com.sleeptracker.SleepTrackerFragment"
+        android:name="br.com.sleeptracker.screens.tracker.SleepTrackerFragment"
         android:label="SleepTrackerFragment"
         tools:layout="@layout/fragment_sleep_tracker">
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/sleep_quality_fragment"
-        android:name="br.com.sleeptracker.SleepQualityFragment"
+        android:name="br.com.sleeptracker.screens.quality.SleepQualityFragment"
         android:label="@string/sleep_quality_fragment"
         tools:layout="@layout/fragment_sleep_quality">
         <argument
