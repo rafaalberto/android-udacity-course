@@ -1,6 +1,7 @@
 package br.com.sleeptracker.screens.tracker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,36 +17,50 @@ import com.google.android.material.snackbar.Snackbar
 
 class SleepTrackerFragment : Fragment() {
 
-    private lateinit var binding: FragmentSleepTrackerBinding
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_tracker, container, false)
+        val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_sleep_tracker, container, false)
 
         val application = requireNotNull(this.activity).application
+
         val dataSource = SleepDatabase.getInstance(application).dailySleepQualityDao
+
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
+
         val sleepTrackerViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
+
         binding.lifecycleOwner = this
 
         sleepTrackerViewModel.navigateToSleepQuality.observe(this, Observer {
             it?.let {
-                this.findNavController().navigate(SleepTrackerFragmentDirections.actionSleepTrackerToSleepQuality(it.id))
+                this.findNavController()
+                    .navigate(SleepTrackerFragmentDirections.actionSleepTrackerToSleepQuality(it.id))
                 sleepTrackerViewModel.doneNavigation()
             }
         })
 
         sleepTrackerViewModel.showSnackbarEvent.observe(this, Observer {
-            if(it == true) {
-                Snackbar.make(activity!!.findViewById(android.R.id.content),
-                getString(R.string.cleared_message), Snackbar.LENGTH_SHORT).show()
+            if (it == true) {
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    getString(R.string.cleared_message), Snackbar.LENGTH_SHORT
+                ).show()
                 sleepTrackerViewModel.doneShowingSnackbar()
+            }
+        })
+
+        val adapter = SleepNightAdapter()
+        binding.sleepList.adapter = adapter
+
+        sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
             }
         })
 

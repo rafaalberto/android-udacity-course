@@ -2,6 +2,7 @@ package br.com.sleeptracker.screens.tracker
 
 import android.app.Application
 import android.text.Spanned
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +28,7 @@ class SleepTrackerViewModel(
 
     private var tonight = MutableLiveData<DailySleepQuality?>()
 
-    private val nights = dailySleepQualityDao.findAll()
+    val nights = dailySleepQualityDao.findAll()
 
     val nightsString: LiveData<Spanned> =
         Transformations.map(nights) { nights -> formatNights(nights, application.resources) }
@@ -76,7 +77,9 @@ class SleepTrackerViewModel(
 
     fun onStartTracking() {
         uiScope.launch {
+            Log.i("sleep", "inserting data")
             insert(DailySleepQuality())
+            Log.i("sleep", "get tonight")
             tonight.value = getTonightFromDatabase()
         }
     }
