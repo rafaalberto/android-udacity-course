@@ -8,7 +8,7 @@ import kotlinx.coroutines.*
 
 class SleepQualityViewModel(
     private val sleepNightKey: Long = 0L,
-    val dailySleepQualityDao: DailySleepQualityDao) : ViewModel() {
+    private val dailySleepQualityDao: DailySleepQualityDao) : ViewModel() {
 
     private val viewModelJob = Job()
 
@@ -25,7 +25,7 @@ class SleepQualityViewModel(
     fun onSetSleepQuality(quality: Int) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                val tonight = dailySleepQualityDao.findById(sleepNightKey) ?: return@withContext
+                val tonight = dailySleepQualityDao.findById(sleepNightKey)
                 tonight.qualityRating = quality
                 dailySleepQualityDao.update(tonight)
             }

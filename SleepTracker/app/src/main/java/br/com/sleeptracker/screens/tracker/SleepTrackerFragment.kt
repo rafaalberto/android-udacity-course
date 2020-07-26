@@ -1,7 +1,6 @@
 package br.com.sleeptracker.screens.tracker
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +36,9 @@ class SleepTrackerFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
+        val adapter = SleepNightAdapter()
+        binding.sleepList.adapter = adapter
+
         sleepTrackerViewModel.navigateToSleepQuality.observe(this, Observer {
             it?.let {
                 this.findNavController()
@@ -54,9 +56,6 @@ class SleepTrackerFragment : Fragment() {
                 sleepTrackerViewModel.doneShowingSnackbar()
             }
         })
-
-        val adapter = SleepNightAdapter()
-        binding.sleepList.adapter = adapter
 
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let {

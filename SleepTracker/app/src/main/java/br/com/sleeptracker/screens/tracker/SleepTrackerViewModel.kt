@@ -1,7 +1,6 @@
 package br.com.sleeptracker.screens.tracker
 
 import android.app.Application
-import android.text.Spanned
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -9,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import br.com.sleeptracker.database.dao.DailySleepQualityDao
 import br.com.sleeptracker.database.entity.DailySleepQuality
-import br.com.sleeptracker.formatNights
 import kotlinx.coroutines.*
 
 class SleepTrackerViewModel(
@@ -29,9 +27,6 @@ class SleepTrackerViewModel(
     private var tonight = MutableLiveData<DailySleepQuality?>()
 
     val nights = dailySleepQualityDao.findAll()
-
-    val nightsString: LiveData<Spanned> =
-        Transformations.map(nights) { nights -> formatNights(nights, application.resources) }
 
     val startButtonVisible: LiveData<Boolean> = Transformations.map(tonight) { null == it }
 
