@@ -25,7 +25,7 @@ class SleepQualityViewModel(
     fun onSetSleepQuality(quality: Int) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                val tonight = dailySleepQualityDao.findById(sleepNightKey)
+                val tonight = dailySleepQualityDao.getById(sleepNightKey) ?: return@withContext
                 tonight.qualityRating = quality
                 dailySleepQualityDao.update(tonight)
             }

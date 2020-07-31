@@ -21,7 +21,8 @@ class SleepTrackerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_sleep_tracker, container, false)
+            inflater, R.layout.fragment_sleep_tracker, container, false
+        )
 
         val application = requireNotNull(this.activity).application
 
@@ -36,7 +37,10 @@ class SleepTrackerFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        val adapter = SleepNightAdapter()
+        val adapter = SleepNightAdapter(SleepNightListener { sleepId ->
+            sleepTrackerViewModel.onSleepNightClicked(sleepId)
+        })
+
         binding.sleepList.adapter = adapter
 
         sleepTrackerViewModel.navigateToSleepQuality.observe(this, Observer {
@@ -59,6 +63,14 @@ class SleepTrackerFragment : Fragment() {
 
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let { adapter.submitList(it) }
+        })
+
+        sleepTrackerViewModel.navigateToSleepDataQuality.observe(this, Observer {
+            it?.let {
+                this.findNavController()
+                    .navigate(SleepTrackerFragmentDirections.actionSleepTrackerToSleepDetail(it))
+                sleepTrackerViewModel.onSleepDataQualityNavigated()
+            }
         })
 
         return binding.root

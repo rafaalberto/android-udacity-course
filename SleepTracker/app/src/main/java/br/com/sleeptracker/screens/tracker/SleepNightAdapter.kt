@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.sleeptracker.R
-import br.com.sleeptracker.convertDurationToFormatted
-import br.com.sleeptracker.convertNumericQualityToString
 import br.com.sleeptracker.database.entity.DailySleepQuality
 import br.com.sleeptracker.databinding.ListItemSleepNightBinding
 
-class SleepNightAdapter : ListAdapter<DailySleepQuality, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapter(private val clickListener: SleepNightListener) :
+    ListAdapter<DailySleepQuality, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
-    class ViewHolder private constructor(private val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(private val binding: ListItemSleepNightBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DailySleepQuality) {
+        fun bind(item: DailySleepQuality, clickListener: SleepNightListener) {
             binding.sleep = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -44,8 +44,15 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<DailySleepQuality>() {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: DailySleepQuality, newItem: DailySleepQuality): Boolean {
+    override fun areContentsTheSame(
+        oldItem: DailySleepQuality,
+        newItem: DailySleepQuality
+    ): Boolean {
         return oldItem == newItem
     }
 
+}
+
+class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
+    fun onClick(dailySleepQuality: DailySleepQuality) = clickListener(dailySleepQuality.id)
 }

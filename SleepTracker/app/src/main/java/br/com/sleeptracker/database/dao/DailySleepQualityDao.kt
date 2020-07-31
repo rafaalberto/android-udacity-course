@@ -20,7 +20,10 @@ interface DailySleepQualityDao {
     fun deleteAll()
 
     @Query("SELECT * from daily_sleep_quality WHERE id = :id")
-    fun findById(id: Long): DailySleepQuality
+    fun getById(id: Long): DailySleepQuality?
+
+    @Query("SELECT * from daily_sleep_quality WHERE id = :id")
+    fun findById(id: Long): LiveData<DailySleepQuality>
 
     @Query("SELECT * FROM daily_sleep_quality ORDER BY id DESC")
     fun findAll(): LiveData<List<DailySleepQuality>>
