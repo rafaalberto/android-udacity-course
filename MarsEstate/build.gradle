@@ -5,6 +5,7 @@ buildscript {
     ext.version_navigation = "1.0.0"
     ext.version_lifecycle_extensions = "2.0.0"
     ext.version_retrofit = "2.5.0"
+    ext.version_moshi = "1.8.0"
     repositories {
         google()
         jcenter()
