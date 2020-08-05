@@ -13,10 +13,9 @@ import kotlinx.coroutines.launch
 class OverviewViewModel : ViewModel() {
 
     private val _status = MutableLiveData<String>()
-    val status: LiveData<String> get() = _status
 
-    private val _property = MutableLiveData<MarsProperty>()
-    val property: LiveData<MarsProperty> get() = _property
+    private val _properties = MutableLiveData<List<MarsProperty>>()
+    val properties: LiveData<List<MarsProperty>> get() = _properties
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -31,7 +30,7 @@ class OverviewViewModel : ViewModel() {
             try {
                 val result = getPropertiesDeferred.await()
                 if(result.isNotEmpty()) {
-                    _property.value = result[0]
+                    _properties.value = result
                 }
             } catch (t: Throwable) {
                 _status.value = "Failure: ${t.message}"

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="viewModel"
-            type="br.com.marsestate.overview.OverviewViewModel" />
+            name="property"
+            type="br.com.marsestate.network.MarsProperty" />
     </data>
 
     <ImageView
@@ -16,7 +17,7 @@
         android:adjustViewBounds="true"
         android:padding="2dp"
         android:scaleType="centerCrop"
-        app:imageUrl="@{viewModel.property.imageSourceUrl}"
+        app:imageUrl="@{property.imageSourceUrl}"
         tools:src="@tools:sample/backgrounds/scenic" />
 
 </layout>
