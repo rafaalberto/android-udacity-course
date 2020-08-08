@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import br.com.marsestate.R
 import br.com.marsestate.databinding.FragmentOverviewBinding
 
@@ -21,7 +23,16 @@ class OverviewFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        binding.photosGrid.adapter = PhotoGripAdapter()
+        binding.photosGrid.adapter = PhotoGripAdapter(PhotoGripAdapter.OnClickListener {
+            overviewViewModel.displayPropertyDetails(it)
+        })
+
+        overviewViewModel.navigateToSelectedProperty.observe(this, Observer {
+            if (null != it) {
+                this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(it))
+                overviewViewModel.displayPropertyDetailsComplete()
+            }
+        })
 
         setHasOptionsMenu(true)
 

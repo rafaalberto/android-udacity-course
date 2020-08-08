@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.marsestate.databinding.GridViewItemBinding
 import br.com.marsestate.network.MarsProperty
 
-class PhotoGripAdapter : ListAdapter<MarsProperty, PhotoGripAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class PhotoGripAdapter(private val onClickListener: OnClickListener) : ListAdapter<MarsProperty, PhotoGripAdapter.MarsPropertyViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsPropertyViewHolder {
         return MarsPropertyViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -17,6 +17,9 @@ class PhotoGripAdapter : ListAdapter<MarsProperty, PhotoGripAdapter.MarsProperty
     override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
         val marsProperty = getItem(position)
         holder.bind(marsProperty)
+        holder.itemView.setOnClickListener{
+            onClickListener.onClick(marsProperty)
+        }
     }
 
     class MarsPropertyViewHolder(private val binding: GridViewItemBinding) :
@@ -35,6 +38,10 @@ class PhotoGripAdapter : ListAdapter<MarsProperty, PhotoGripAdapter.MarsProperty
         override fun areContentsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean {
             return oldItem.id == newItem.id
         }
+    }
+
+    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit) {
+        fun onClick(marsProperty: MarsProperty) = clickListener(marsProperty)
     }
 
 }
