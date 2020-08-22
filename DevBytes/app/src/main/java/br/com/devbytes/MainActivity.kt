@@ -1,4 +1,4 @@
-package br.com.devbytes.ui
+package br.com.devbytes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
