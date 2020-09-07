@@ -12,7 +12,7 @@ private const val BASE_URL = "https://devbytes.udacity.com/"
 
 interface DevByteService {
     @GET("devbytes.json")
-    fun getPlaylist(): Deferred<List<VideoNetworkContainer>>
+    fun getPlaylist(): Deferred<VideoNetworkContainer>
 }
 
 private val moshi = Moshi.Builder()
@@ -26,7 +26,7 @@ object Network {
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
-    val devBytes = retrofit.create(DevByteService::class.java)
+    val devBytes: DevByteService = retrofit.create(DevByteService::class.java)
 }
 
 
