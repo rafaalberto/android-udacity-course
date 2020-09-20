@@ -1,6 +1,6 @@
 package br.com.devbytes.network
 
-import br.com.devbytes.domain.Video
+import br.com.devbytes.database.VideoEntity
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -15,13 +15,14 @@ data class VideoNetwork(
 @JsonClass(generateAdapter = true)
 data class VideoNetworkContainer(val videos: List<VideoNetwork>)
 
-fun VideoNetworkContainer.asDomainModel(): List<Video> {
+fun VideoNetworkContainer.asDatabaseModel(): Array<VideoEntity> {
     return videos.map {
-        Video(
+        VideoEntity(
             title = it.title,
             description = it.description,
             url = it.url,
             updated = it.updated,
-            thumbnail = it.thumbnail)
-    }
+            thumbnail = it.thumbnail
+        )
+    }.toTypedArray()
 }

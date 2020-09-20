@@ -2,16 +2,12 @@ package br.com.devbytes.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import br.com.devbytes.domain.Video
-import br.com.devbytes.network.Network
-import br.com.devbytes.network.asDomainModel
+import br.com.devbytes.database.getDatabase
+import br.com.devbytes.repository.VideosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class DevByteViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,22 +15,17 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val _playlist = MutableLiveData<List<Video>>()
+    private val database = getDatabase(application)
 
-    val playlist: LiveData<List<Video>> get() = _playlist
+    private val videosRepository = VideosRepository(database)
 
     init {
-        refreshDataFromNetwork()
-    }
-
-    private fun refreshDataFromNetwork() = viewModelScope.launch {
-        try {
-            val playlist = Network.devBytes.getPlaylist().await()
-            _playlist.postValue(playlist.asDomainModel())
-        } catch (netWorkError: IOException) {
-
+        viewModelScope.launch {
+            videosRepository.refreshVideos()
         }
     }
+
+    val playlist = videosRepository.videos
 
     override fun onCleared() {
         super.onCleared()

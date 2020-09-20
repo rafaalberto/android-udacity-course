@@ -7,6 +7,8 @@ buildscript {
     ext.version_moshi = "1.8.0"
     ext.version_lifecycle_extensions = "2.0.0"
     ext.version_glide = "4.8.0"
+    ext.version_room = "2.2.5"
+    ext.version_work = "1.0.1"
     repositories {
         google()
         jcenter()

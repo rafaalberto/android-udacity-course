@@ -12,7 +12,7 @@ private const val BASE_URL = "https://devbytes.udacity.com/"
 
 interface DevByteService {
     @GET("devbytes.json")
-    fun getPlaylist(): Deferred<VideoNetworkContainer>
+    fun getPlaylistAsync(): Deferred<VideoNetworkContainer>
 }
 
 private val moshi = Moshi.Builder()
